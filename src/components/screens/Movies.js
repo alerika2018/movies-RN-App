@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Center, VStack, Box } from "native-base";
+import React, { useState } from "react";
+import { Center, VStack, Box } from "native-base";
 import DropDown from "../Elements/DropDown";
 import MoviesContainer from "../containers/MoviesContainer";
 
@@ -14,16 +14,8 @@ const Movies = ({ navigation }) => {
     { label: "Upcoming", value: "upcoming" },
   ];
 
-  // useEffect(() => {
-  //   getMovies(filter).then((data) => {
-  //     console.log("data", data[0]);
-  //   });
-  // }, [filter]);
-
   return (
     <>
-      {/* <Text> Hello Screen</Text> */}
-
       <VStack space={2} width="100%" py={5}>
         <Center>
           <Box w="3/4" maxW="300">

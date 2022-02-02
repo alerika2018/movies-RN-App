@@ -2,7 +2,7 @@ import React from "react";
 import { Text, Box, HStack, Image, VStack, Button } from "native-base";
 import { API_IMAGE_URL } from "../../config/api.config";
 
-const Card = ({ item }) => {
+const Card = ({ item, type }) => {
   // console.log(item);
   return (
     <Box pb={3} mb={1} width={"80%"}>
@@ -21,10 +21,13 @@ const Card = ({ item }) => {
         <Box w={"2/3"}>
           <VStack>
             <Text fontWeight={"bold"} fontSize={"14px"}>
-              {item.title}
+              {type == "movie" ? item.title : item.name}
             </Text>
             <Text>Popularity: {item.popularity}</Text>
-            <Text>Release Date: {item.release_date}</Text>
+            <Text>
+              Release Date:{" "}
+              {type == "movie" ? item.release_date : item.first_air_date}
+            </Text>
             <Button w={"90%"}>More Details</Button>
           </VStack>
         </Box>
