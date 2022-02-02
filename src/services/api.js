@@ -17,15 +17,17 @@ export const getTVShow = async (filter) => {
   return response.data.results;
 };
 
-// https://api.themoviedb.org/3/tv/on_the_air?api_key=<<api_key>>&language=en-US&page=1
+export const getSearch = async (filter, query) => {
+  const url = `${API_URL}search/${filter}?api_key=${API_KEY}${API_FINAL}&query=${query}`;
+  console.log(url);
 
-// https://api.themoviedb.org/3/tv/airing_today?api_key=<<api_key>>&language=en-US&page=1
-// https://api.themoviedb.org/3/tv/popular?api_key=<<api_key>>&language=en-US&page=1
+  const response = await axios.get(url);
+  //   console.log("results", response.data.results);
+  return response.data.results;
+};
 
-// https://api.themoviedb.org/3/movie/now_playing?api_key=<<api_key>>&language=en-US&page=1
+// https://api.themoviedb.org/3/search/movie?api_key=f61d2a5ccc7d268ad76d8deebaff8b7e&language=en-US&page=1&include_adult=false&query=
 
-// https://api.themoviedb.org/3/movie/popular?api_key=<<api_key>>&language=en-US&page=1
+// https://api.themoviedb.org/3/search/tv?api_key=f61d2a5ccc7d268ad76d8deebaff8b7e&language&language=en-US&page=1&include_adult=false&query=sing
 
-// https://api.themoviedb.org/3/movie/top_rated?api_key=<<api_key>>&language=en-US&page=1
-
-// https://api.themoviedb.org/3/movie/upcoming?api_key=<<api_key>>&language=en-US&page=1
+// https://api.themoviedb.org/3/search/multi?api_key=<<api_key>>&language=en-US&page=1&include_adult=false

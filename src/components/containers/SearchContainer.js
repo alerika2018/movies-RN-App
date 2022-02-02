@@ -3,20 +3,20 @@ import Card from "../cards/Card";
 import Loading from "../layout/Loading";
 import { Container, VStack, ScrollView, Center } from "native-base";
 
-import { getMovies } from "../../services/api";
+import { getSearch } from "../../services/api";
 
 import { Dimensions } from "react-native";
 
-const MoviesContainer = (props) => {
+const SearchContainer = (props) => {
   let width = Dimensions.get("window").width;
   console.log("width: ", width);
   const [data, setData] = useState();
   useEffect(() => {
-    getMovies(props.filter).then((data) => {
+    getSearch(props.filter, props.query).then((data) => {
       setData(data);
       //   console.log("data", data);
     });
-  }, [props.filter]);
+  }, [props.doSearch]);
 
   return (
     <Container pb={20} mb={10}>
@@ -24,7 +24,7 @@ const MoviesContainer = (props) => {
         <VStack space={2} width="100%" py={3}>
           <Center>
             {data ? (
-              data.map((movie) => <Card item={movie} type={"movie"} />)
+              data.map((result) => <Card item={result} type={props.filter} />)
             ) : (
               <Loading />
             )}
@@ -35,4 +35,4 @@ const MoviesContainer = (props) => {
   );
 };
 
-export default MoviesContainer;
+export default SearchContainer;

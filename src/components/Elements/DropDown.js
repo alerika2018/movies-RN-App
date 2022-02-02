@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Select, Center, CheckIcon } from "native-base";
+import { Select, CheckIcon } from "native-base";
 
 const DropDown = (props) => {
   return (

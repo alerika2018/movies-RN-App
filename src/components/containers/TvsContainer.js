@@ -19,12 +19,12 @@ const TvsContainer = (props) => {
   }, [props.filter]);
 
   return (
-    <Container>
+    <Container pb={20} mb={10}>
       <ScrollView w={width}>
         <VStack space={2} width="100%" py={3}>
           <Center>
             {data ? (
-              data.map((TV) => <Card item={TV} type={"TV"} />)
+              data.map((tv) => <Card item={tv} type={"tv"} />)
             ) : (
               <Loading />
             )}
