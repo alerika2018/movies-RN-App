@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, Box, HStack, Image, VStack, Button } from "native-base";
 import { API_IMAGE_URL } from "../../config/api.config";
 
-const Card = ({ item, type }) => {
+const Card = ({ item, type, navigation, route }) => {
   let image = item.poster_path;
 
   let title = "";
@@ -29,8 +29,13 @@ const Card = ({ item, type }) => {
       date = "N/A";
       image = item.profile_path;
     }
+
+    type = item.media_type;
   }
 
+  const onClick = (id) => {
+    navigation.push("Details", { id: id, type: type });
+  };
   return (
     <Box pb={3} mb={1} width={"80%"}>
       <HStack>
@@ -41,7 +46,7 @@ const Card = ({ item, type }) => {
             source={{
               uri: `${API_IMAGE_URL}${image}`,
             }}
-            alt="Alternate Text"
+            alt={title}
             size="xl"
           />
         </Box>
@@ -57,7 +62,9 @@ const Card = ({ item, type }) => {
               {/* {type == "movie" ? item.release_date : item.first_air_date} */}
               {date}
             </Text>
-            <Button w={"90%"}>More Details</Button>
+            <Button w={"90%"} onPress={() => onClick(item.id)}>
+              More Details
+            </Button>
           </VStack>
         </Box>
       </HStack>

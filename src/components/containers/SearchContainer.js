@@ -9,12 +9,11 @@ import { Dimensions } from "react-native";
 
 const SearchContainer = (props) => {
   let width = Dimensions.get("window").width;
-  console.log("width: ", width);
+
   const [data, setData] = useState();
   useEffect(() => {
     getSearch(props.filter, props.query).then((data) => {
       setData(data);
-      //   console.log("data", data);
     });
   }, [props.doSearch]);
 
@@ -24,7 +23,14 @@ const SearchContainer = (props) => {
         <VStack space={2} width="100%" py={3}>
           <Center>
             {data ? (
-              data.map((result) => <Card item={result} type={props.filter} />)
+              data.map((result, index) => (
+                <Card
+                  navigation={props.navigation}
+                  key={index}
+                  item={result}
+                  type={props.filter}
+                />
+              ))
             ) : (
               <Loading />
             )}

@@ -9,12 +9,12 @@ import { Dimensions } from "react-native";
 
 const MoviesContainer = (props) => {
   let width = Dimensions.get("window").width;
-  console.log("width: ", width);
-  const [data, setData] = useState();
+
+  const [data, setData] = useState("");
+
   useEffect(() => {
     getMovies(props.filter).then((data) => {
       setData(data);
-      //   console.log("data", data);
     });
   }, [props.filter]);
 
@@ -24,7 +24,14 @@ const MoviesContainer = (props) => {
         <VStack space={2} width="100%" py={3}>
           <Center>
             {data ? (
-              data.map((movie) => <Card item={movie} type={"movie"} />)
+              data.map((movie, index) => (
+                <Card
+                  navigation={props.navigation}
+                  key={index}
+                  item={movie}
+                  type={"movie"}
+                />
+              ))
             ) : (
               <Loading />
             )}

@@ -3,10 +3,8 @@ import { Center, VStack, Box } from "native-base";
 import DropDown from "../Elements/DropDown";
 import MoviesContainer from "../containers/MoviesContainer";
 
-// import { getMovies } from "../../services/api";
-
 const Movies = ({ navigation }) => {
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState("popular");
   let options = [
     { label: "Now Playing", value: "now_playing" },
     { label: "Popular", value: "popular" },
@@ -19,10 +17,10 @@ const Movies = ({ navigation }) => {
       <VStack space={2} width="100%" py={5}>
         <Center>
           <Box w="3/4" maxW="300">
-            <DropDown setFilter={setFilter} options={options} />
+            <DropDown setFilter={setFilter} filter={filter} options={options} />
           </Box>
         </Center>
-        <MoviesContainer filter={filter} />
+        <MoviesContainer navigation={navigation} filter={filter} />
       </VStack>
     </>
   );

@@ -5,9 +5,8 @@ import { Select, CheckIcon } from "native-base";
 const DropDown = (props) => {
   return (
     <Select
-      // selectedValue={service}
+      selectedValue={props.filter}
       minWidth="200"
-      placeholder="Select"
       _selectedItem={{
         bg: "teal.600",
         endIcon: <CheckIcon size="5" />,
@@ -16,7 +15,7 @@ const DropDown = (props) => {
       onValueChange={(filterSelected) => props.setFilter(filterSelected)}
     >
       {props.options.map((item) => (
-        <Select.Item label={item.label} value={item.value} />
+        <Select.Item key={item.label} label={item.label} value={item.value} />
       ))}
     </Select>
   );

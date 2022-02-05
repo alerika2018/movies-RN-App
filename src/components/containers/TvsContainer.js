@@ -9,12 +9,11 @@ import { Dimensions } from "react-native";
 
 const TvsContainer = (props) => {
   let width = Dimensions.get("window").width;
-  console.log("width: ", width);
+
   const [data, setData] = useState();
   useEffect(() => {
     getTVShow(props.filter).then((data) => {
       setData(data);
-      //   console.log("data", data);
     });
   }, [props.filter]);
 
@@ -24,7 +23,14 @@ const TvsContainer = (props) => {
         <VStack space={2} width="100%" py={3}>
           <Center>
             {data ? (
-              data.map((tv) => <Card item={tv} type={"tv"} />)
+              data.map((tv, index) => (
+                <Card
+                  navigation={props.navigation}
+                  key={index}
+                  item={tv}
+                  type={"tv"}
+                />
+              ))
             ) : (
               <Loading />
             )}

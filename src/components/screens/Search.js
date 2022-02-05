@@ -16,11 +16,11 @@ import SearchContainer from "../containers/SearchContainer";
 
 const Search = ({ navigation }) => {
   let width = Dimensions.get("window").width;
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState("multi");
   const [query, setQuery] = useState({});
   const [doSearch, setDoSearch] = useState(false);
   let options = [
-    { label: "TV Show or Movie", value: "multi" },
+    { label: "Multi", value: "multi" },
     { label: "Movie", value: "movie" },
     { label: "TV Show", value: "tv" },
   ];
@@ -63,7 +63,11 @@ const Search = ({ navigation }) => {
           </Text>
           <HStack>
             <Box w="2/3" maxW="300" paddingRight={4}>
-              <DropDown setFilter={setFilter} options={options} />
+              <DropDown
+                setFilter={setFilter}
+                filter={filter}
+                options={options}
+              />
             </Box>
             <Box w={"1/3"}>
               <Button
@@ -77,7 +81,14 @@ const Search = ({ navigation }) => {
           </HStack>
         </Box>
       </VStack>
-      <SearchContainer filter={filter} query={query} doSearch={doSearch} />
+      <Box>
+        <SearchContainer
+          navigation={navigation}
+          filter={filter}
+          query={query}
+          doSearch={doSearch}
+        />
+      </Box>
     </Container>
   );
 };
