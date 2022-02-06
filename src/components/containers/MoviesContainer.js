@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../cards/Card";
 import Loading from "../layout/Loading";
-import { Container, VStack, ScrollView, Center } from "native-base";
+import { FlatList, Container, VStack, ScrollView, Center } from "native-base";
 
 import { getMovies } from "../../services/api";
 
@@ -15,6 +15,7 @@ const MoviesContainer = (props) => {
   useEffect(() => {
     getMovies(props.filter).then((data) => {
       setData(data);
+      console.log(data.length);
     });
   }, [props.filter]);
 
