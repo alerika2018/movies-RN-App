@@ -1,6 +1,7 @@
 import axios from "axios";
 
-import { API_KEY, API_URL, API_FINAL } from "../config/api.config";
+import { API_URL, API_FINAL } from "../config/api.config";
+import { API_KEY } from "../config/apiKey";
 
 export const getMovies = async (filter) => {
   try {
