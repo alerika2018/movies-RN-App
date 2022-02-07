@@ -4,7 +4,7 @@ import { Center, Text } from "native-base";
 const Loading = () => {
   return (
     <Center>
-      <Text>Loading reults, please be patient.</Text>
+      <Text>Loading results, please be patient.</Text>
     </Center>
   );
 };

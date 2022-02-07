@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Card from "../cards/Card";
 import Loading from "../layout/Loading";
-import { Container, VStack, ScrollView, Center } from "native-base";
-
+import { Container, VStack, ScrollView, Center, Text } from "native-base";
+import Pagination from "../Elements/pagination";
 import { getSearch } from "../../services/api";
 
 import { Dimensions } from "react-native";
@@ -10,20 +10,39 @@ import { Dimensions } from "react-native";
 const SearchContainer = (props) => {
   let width = Dimensions.get("window").width;
 
-  const [data, setData] = useState();
+  const [pageData, setPageData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalData, setTotalData] = useState(0);
+
   useEffect(() => {
     getSearch(props.filter, props.query).then((data) => {
-      setData(data);
+      setTotalData(data);
+      let i, j;
+      if (page == 1) {
+        i = 0;
+        j = 9;
+      } else {
+        i = 10;
+        j = 19;
+      }
+      setPageData([]);
+      if (data) {
+        data.map((item, index) => {
+          if (index >= i && index <= j) {
+            setPageData((prevData) => [...prevData, item]);
+          }
+        });
+      }
     });
-  }, [props.doSearch]);
+  }, [props.doSearch, page]);
 
   return (
-    <Container pb={20} mb={10}>
+    <Container mb={10}>
       <ScrollView w={width}>
-        <VStack space={2} width="100%" py={3}>
+        <VStack space={2} width="100%" pb={430} py={3}>
           <Center>
-            {data ? (
-              data.map((result, index) => (
+            {pageData ? (
+              pageData.map((result, index) => (
                 <Card
                   navigation={props.navigation}
                   key={index}
@@ -34,6 +53,8 @@ const SearchContainer = (props) => {
             ) : (
               <Loading />
             )}
+            {totalData.length == 0 && <Text>No results found</Text>}
+            {totalData.length > 10 && <Pagination setPage={setPage} />}
           </Center>
         </VStack>
       </ScrollView>

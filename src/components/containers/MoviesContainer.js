@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Card from "../cards/Card";
 import Loading from "../layout/Loading";
-import { FlatList, Container, VStack, ScrollView, Center } from "native-base";
+import { Container, VStack, ScrollView, Center } from "native-base";
+import Pagination from "../Elements/pagination";
 
 import { getMovies } from "../../services/api";
 
@@ -10,22 +11,37 @@ import { Dimensions } from "react-native";
 const MoviesContainer = (props) => {
   let width = Dimensions.get("window").width;
 
-  const [data, setData] = useState("");
+  const [pageData, setPageData] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     getMovies(props.filter).then((data) => {
-      setData(data);
-      console.log(data.length);
+      let i, j;
+      if (page == 1) {
+        i = 0;
+        j = 9;
+      } else {
+        i = 10;
+        j = 19;
+      }
+      setPageData([]);
+      if (data) {
+        data.map((item, index) => {
+          if (index >= i && index <= j) {
+            setPageData((prevData) => [...prevData, item]);
+          }
+        });
+      }
     });
-  }, [props.filter]);
+  }, [props.filter, page]);
 
   return (
     <Container pb={20} mb={10}>
       <ScrollView w={width}>
         <VStack space={2} width="100%" py={3}>
           <Center>
-            {data ? (
-              data.map((movie, index) => (
+            {pageData ? (
+              pageData.map((movie, index) => (
                 <Card
                   navigation={props.navigation}
                   key={index}
@@ -36,6 +52,8 @@ const MoviesContainer = (props) => {
             ) : (
               <Loading />
             )}
+
+            {pageData && <Pagination setPage={setPage} />}
           </Center>
         </VStack>
       </ScrollView>
